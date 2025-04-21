@@ -81,11 +81,11 @@ void main()
     avgwt = sumwt / n;
     avgtat = sumtat / n;
     printf("------------------------------\n");
-    printf("P\tBt\tCt\tTat\tWt\n");
+    printf("Bt\tCt\tTat\tWt\n");
     printf("------------------------------\n");
     for (i = 0; i < n; i++)
     {
-        printf("P%d\t%2d\t%2d\t%2d\t%2d\n", i + 1, bt[i], compt[i], tat[i], wt[i]);
+        printf("%2d\t%2d\t%2d\t%2d\n", i, bt[i], compt[i], tat[i], wt[i]);
     }
     printf("------------------------------\n");
     printf("Avgwt = %.2f\tAvgtat = %.2f\n", avgwt, avgtat);
