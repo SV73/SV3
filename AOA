@@ -161,129 +161,108 @@ getch();
 Q4  WP to implement MST of Kruskal's algorithm.
 
 #include <stdio.h>
-#include <stdlib.h>
+#define INFINITY 999
 
-#define SIZE 20
-#define INFINITY 32767
+typedef struct Graph {
+    int v1;
+    int v2;
+    int cost;
+} GR;
 
-// Structure for an edge
-typedef struct {
-    int u, v, weight;
-} Edge;
+GR G[20];
+int tot_edges, tot_nodes;
 
-// Disjoint-set (Union-Find) functions
-int parent[SIZE], rank[SIZE];
-
-// Find function for Union-Find
-int find(int i) {
-    if (parent[i] == i)
-        return i;
-    return parent[i] = find(parent[i]);  // Path compression
-}
-
-// Union function for Union-Find
-void unionSets(int i, int j) {
-    int ri = find(i);
-    int rj = find(j);
-
-    if (ri != rj) {
-        if (rank[ri] > rank[rj])
-            parent[rj] = ri;
-        else if (rank[ri] < rank[rj])
-            parent[ri] = rj;
-        else {
-            parent[rj] = ri;
-            rank[ri]++;
-        }
-    }
-}
-
-void Kruskal(int G[][SIZE], int edges, int nodes) {
-    Edge edgeList[SIZE];
-    int i, j, e = 0, total = 0;
-
-    // Convert adjacency matrix into edge list
-    int k = 0;
-    for (i = 0; i < nodes; i++) {
-        for (j = i + 1; j < nodes; j++) {
-            if (G[i][j] != 0 && G[i][j] != INFINITY) {
-                edgeList[k].u = i;
-                edgeList[k].v = j;
-                edgeList[k].weight = G[i][j];
-                k++;
-            }
-        }
-    }
-
-    // Sorting edges by weight using bubble sort (can be optimized)
-    for (i = 0; i < edges - 1; i++) {
-        for (j = 0; j < edges - i - 1; j++) {
-            if (edgeList[j].weight > edgeList[j + 1].weight) {
-                Edge temp = edgeList[j];
-                edgeList[j] = edgeList[j + 1];
-                edgeList[j + 1] = temp;
-            }
-        }
-    }
-
-    // Initialize disjoint sets
-    for (i = 0; i < nodes; i++) {
-        parent[i] = i;
-        rank[i] = 0;
-    }
-
-    printf("\nThe minimal spanning tree is:\n");
-
-    // Iterate over sorted edges
-    for (i = 0; i < edges; i++) {
-        int u = edgeList[i].u;
-        int v = edgeList[i].v;
-        int weight = edgeList[i].weight;
-
-        // Check if adding this edge forms a cycle
-        if (find(u) != find(v)) {
-            printf("Edge (%d, %d) with weight = %d\n", u, v, weight);
-            unionSets(u, v);
-            total += weight;
-            e++;
-            if (e == nodes - 1)
-                break;
-        }
-    }
-
-    printf("\nTotal path length is = %d\n", total);
-}
+void create();
+void spanning_tree();
+int Minimum(int);
+int Find(int, int[]);
+void Union(int, int, int[]);
 
 int main() {
-    int G[SIZE][SIZE], nodes, edges;
-    int v1, v2, length, i, j;
-
-    printf("\nKruskal's Algorithm\n");
-    printf("\nEnter the number of nodes in the graph: ");
-    scanf("%d", &nodes);
-
-    printf("\nEnter the number of edges in the graph: ");
-    scanf("%d", &edges);
-
-    // Initialize graph to infinity
-    for (i = 0; i < nodes; i++) {
-        for (j = 0; j < nodes; j++) {
-            G[i][j] = (i != j) ? INFINITY : 0;
-        }
-    }
-
-    printf("\nEnter edges and their weights:\n");
-    for (i = 0; i < edges; i++) {
-        printf("\nEnter edge (v1 and v2) %d: ", i + 1);
-        scanf("%d%d", &v1, &v2);
-
-        printf("\nEnter the corresponding weight: ");
-        scanf("%d", &length);
-
-        G[v1][v2] = G[v2][v1] = length; // Undirected graph
-    }
-
-    Kruskal(G, edges, nodes);
-
+    printf("\n\t Graph Creation by adjacency matrix");
+    create();
+    spanning_tree();
+    getch();
     return 0;
 }
+
+void create() {
+    int k;
+    printf("\n Enter Total number of nodes: ");
+    scanf("%d", &tot_nodes);
+    printf("\n Enter Total number of edges: ");
+    scanf("%d", &tot_edges);
+    
+    for (k = 0; k < tot_edges; k++) {
+        printf("\n Enter Edge in (V1 V2) form: ");
+        scanf("%d%d", &G[k].v1, &G[k].v2);
+        printf(" Enter Corresponding Cost: ");
+        scanf("%d", &G[k].cost);
+    }
+}
+
+void spanning_tree() {
+    int count = 0, k = 0, v1, v2, i, j, tree[10][2], pos, parent[10], sum = 0;
+
+    for (i = 0; i < tot_nodes; i++) {
+        parent[i] = i;
+    }
+
+    while (count != tot_nodes - 1) {
+        pos = Minimum(tot_edges);  // Finding the minimum cost edge
+        if (pos == -1)  // Perhaps no node in the graph
+            break;
+
+        v1 = G[pos].v1;
+        v2 = G[pos].v2;
+        i = Find(v1, parent);
+        j = Find(v2, parent);
+
+        if (i != j) {
+            tree[k][0] = v1;  // Storing the minimum edge
+            tree[k][1] = v2;
+            k++;
+            count++;
+            sum += G[pos].cost;
+            Union(i, j, parent);
+        }
+
+        G[pos].cost = INFINITY;  // Mark this edge as used
+    }
+
+    if (count == tot_nodes - 1) {
+        printf("\n Spanning tree is:\n\n");
+        for (i = 0; i < tot_nodes - 1; i++) {
+            printf("[%d - %d]\n", tree[i][0], tree[i][1]);
+        }
+        printf("\nCost of Spanning Tree is = %d\n", sum);
+    } else {
+        printf("\nThere is no Spanning Tree\n");
+    }
+}
+
+int Minimum(int n) {
+    int i, small = INFINITY, pos = -1;
+    for (i = 0; i < n; i++) {
+        if (G[i].cost < small) {
+            small = G[i].cost;
+            pos = i;
+        }
+    }
+    return pos;
+}
+
+int Find(int v2, int parent[]) {
+    while (parent[v2] != v2) {
+        v2 = parent[v2];
+    }
+    return v2;
+}
+
+void Union(int i, int j, int parent[]) {
+    if (i < j)
+        parent[j] = i;
+    else
+        parent[i] = j;
+}
+
