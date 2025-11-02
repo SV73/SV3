@@ -1,0 +1,647 @@
+*Exp-1*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AIML TE 27</title>
+</head>
+<body>
+    <h1>MY WEBPAGE</h1>
+
+    <h2>LIST</h2>
+    <h2>My Hobbies</h2>
+    <ol>
+        <li>Coding</li>
+        <li>Traveling</li>
+        <li>Cycling</li>
+        <li>Music</li>
+    </ol>
+    <hr>
+
+    <h2>TABLE</h2>
+    <table border="1">
+        <tr>
+            <th>COURSE</th>
+            <th>BRANCH</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>AIML</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>COMPS</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>IT</td>
+        </tr>
+    </table>
+    <hr>
+
+    <h2>LINKS</h2>
+    <p>Link to my college website:</p>
+    <a href="https://universalcollegeofengineering.edu.in/">College Website Link</a>
+    <hr>
+
+    <h2>IMAGE</h2>
+    <img src="AI.jpg" width="300" alt="AI Image">
+    <hr>
+</body>
+</html>
+|
+|
+|
+|
+*Exp-2*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Form Example</title>
+</head>
+<body>
+    <h1>User Registration Form</h1>
+
+    <form action="#" method="POST">
+        <!-- Text Field -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <br><br>
+
+        <!-- Password Field -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <br><br>
+
+        <!-- Date Field -->
+        <label for="birthdate">Date of Birth:</label>
+        <input type="date" id="birthdate" name="birthdate" required>
+        <br><br>
+
+        <!-- Dropdown -->
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <br><br>
+
+        <!-- Radio Buttons -->
+        <label>Preferred Contact Method:</label><br>
+        <input type="radio" id="email" name="contact_method" value="email">
+        <label for="email">Email</label><br>
+
+        <input type="radio" id="phone" name="contact_method" value="phone">
+        <label for="phone">Phone</label>
+        <br><br>
+
+        <!-- Checkbox -->
+        <label>
+            <input type="checkbox" id="agree" name="agree"> I agree to the terms and conditions
+        </label>
+        <br><br>
+
+        <!-- Student Info -->
+        <p><strong>SAKETH SAMALA TE/AIML-D2-99</strong></p>
+
+        <!-- Textarea -->
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments" rows="4" placeholder="Enter your comments or suggestions"></textarea>
+        <br><br>
+
+        <!-- Submit and Reset Buttons -->
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+</body>
+</html>
+|
+|
+|
+|
+*Exp-4*
+A)User Registration Form (with JavaScript Validation)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === "") {
+                alert("Username cannot be blank!");
+                return false;
+            }
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address (e.g., example@domain.com).");
+                return false;
+            }
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+</body>
+</html>
+|
+|
+|
+|
+B)Vowel and Consonant Printer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowel and Consonant Printer</title>
+</head>
+<body>
+    <h1>Vowel and Consonant Printer</h1>
+    <p>Enter a string, and the vowels will be printed first, followed by the consonants.</p>
+
+    <div>
+        <input type="text" id="inputString" placeholder="Enter a string...">
+        <button id="runButton">Print Vowels & Consonants</button>
+    </div>
+
+    <div>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        function printVowelsAndConsonants(str) {
+            const vowels = "aeiouAEIOU";
+            let vowelList = [];
+            let consonantList = [];
+
+            for (const char of str) {
+                if (/[a-zA-Z]/.test(char)) {
+                    if (vowels.includes(char)) {
+                        vowelList.push(char);
+                    } else {
+                        consonantList.push(char);
+                    }
+                }
+            }
+
+            let outputText = "Vowels:\n";
+            outputText += vowelList.join('\n');
+            outputText += "\n\nConsonants:\n";
+            outputText += consonantList.join('\n');
+
+            return outputText;
+        }
+
+        const inputStringElement = document.getElementById("inputString");
+        const runButton = document.getElementById("runButton");
+        const outputElement = document.getElementById("output");
+
+        const handlePrint = () => {
+            const input = inputStringElement.value;
+            if (input.trim() === "") {
+                outputElement.textContent = "Please enter a non-empty string.";
+                return;
+            }
+            outputElement.textContent = printVowelsAndConsonants(input);
+        };
+
+        runButton.addEventListener("click", handlePrint);
+        inputStringElement.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                handlePrint();
+            }
+        });
+
+        window.addEventListener('load', handlePrint);
+    </script>
+</body>
+</html>
+|
+|
+|
+|
+*Exp-5*
+A)Random Background Color
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Background Color</title>
+</head>
+<body>
+    <h1>Click the button to change the background color!</h1>
+    <button id="colorButton">Change color</button>
+
+    <script>
+        const colorButton = document.getElementById('colorButton');
+        colorButton.addEventListener('click', function() {
+            const randomColor = '#' + Math.floor(Math.random() * 16777215)
+                .toString(16)
+                .padStart(6, '0');
+            document.body.style.backgroundColor = randomColor;
+        });
+    </script>
+
+    <p><strong>SAKETH SAMALA TE/AIML-D2-99</strong></p>
+</body>
+</html>
+|
+|
+|
+|
+B)Shopping List Example
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List Example</title>
+    <style>
+        li {
+            margin-bottom: 10px;
+        }
+
+        li button {
+            font-size: 8px;
+            margin-left: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Shopping List</h1>
+
+    <div>
+        <label for="item">Enter a new item:</label>
+        <input type="text" name="item" id="item">
+        <button>Add item</button>
+    </div>
+
+    <ul></ul>
+
+    <script>
+        const list = document.querySelector("ul");
+        const input = document.getElementById('item');
+        const btn = document.querySelector("button");
+
+        input.focus();
+
+        const addItem = () => {
+            // get text entered by the user in the input field
+            let item = input.value.trim();
+            if (item === "") return;
+
+            // clear contents of the input field
+            input.value = '';
+
+            // create a list item (li), a span, and a button
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            const deleteButton = document.createElement('button');
+
+            // append span and button as children to li
+            li.appendChild(span);
+            li.appendChild(deleteButton);
+
+            // set text content of span to value of item variable
+            span.textContent = item;
+
+            // set delete button's label as "Delete"
+            deleteButton.textContent = 'Delete';
+
+            // append li as child to list object
+            list.appendChild(li);
+
+            // define onclick handler for delete button
+            deleteButton.onclick = function() {
+                list.removeChild(li);
+            }
+        };
+
+        btn.onclick = addItem;
+    </script>
+</body>
+</html>
+|
+|
+|
+|
+*Exp-6*
+A)To implement Inheritance in JavaScript
+// Experiment A - Shape and Square Classes
+
+class Shape {
+    constructor(name, sides, sideLength) {
+        this.name = name;
+        this.sides = sides;
+        this.sideLength = sideLength;
+    }
+
+    calcPerimeter() {
+        const perimeter = this.sides * this.sideLength;
+        console.log(`The perimeter of the ${this.name} is: ${perimeter}`);
+    }
+}
+
+// Creating instances of Shape
+const square = new Shape('square', 4, 5);
+square.calcPerimeter();
+
+const triangle = new Shape('triangle', 3, 3);
+triangle.calcPerimeter();
+
+// Square subclass extending Shape
+class Square extends Shape {
+    constructor(sideLength) {
+        super('square', 4, sideLength);
+    }
+
+    calcArea() {
+        const area = this.sideLength * this.sideLength;
+        console.log(`The area of the square is: ${area}`);
+    }
+}
+
+// Creating instance of Square
+const newSquare = new Square(6);
+newSquare.calcArea();
+newSquare.calcPerimeter();
+|
+|
+|
+|
+B)To implement Error handling in JavaScript
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Try Catch</title>
+</head>
+<body>
+    <h2>JavaScript Try Catch</h2>
+    <p>Please input a number between 5 and 10:</p>
+
+    <input id="demo" type="text">
+    <button type="button" onclick="myFunction()">Test Input</button>
+
+    <p id="p01"></p>
+
+    <script>
+        function myFunction() {
+            const message = document.getElementById("p01");
+            message.innerHTML = ""; // Clear previous messages
+            let x = document.getElementById("demo").value;
+
+            try {
+                if (x === "") throw "Input is empty";
+                if (isNaN(x)) throw "Not a number";
+                x = Number(x);
+                if (x < 5) throw "Too low";
+                if (x > 10) throw "Too high";
+                message.innerHTML = "Valid input: " + x;
+            } catch (err) {
+                message.innerHTML = "Error: " + err;
+            }
+        }
+    </script>
+</body>
+</html>
+|
+|
+|
+|
+*Exp-7*-To create a React Component with props and state.
+Car_component.js
+import React from 'react';
+class Car extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { color: "red" };
+    }
+
+    render() {
+        /*
+        While returning JSX, it is important to enclose everything in a single tag.
+        So, in this example, we are enclosing inside the <div> tag.
+        But we can also enclose in blank <> </> tags.
+        */
+        return (
+            <div>
+                <h2>Car</h2>
+                <p>I am a {this.props.model}!</p>
+                <p>My color is {this.state.color}</p>
+            </div>
+        );
+    }
+}
+
+export default Car;
+App.js
+import React from 'react';
+import Car from './components/Car_component.js';
+
+function App() {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Car model="Mustang" />
+            </header>
+        </div>
+    );
+}
+
+export default App;
+|
+|
+|
+|
+*Exp-8*-To create a React app to demonstrate Component life cycle.
+Clock_component.js
+import React from 'react';
+
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
+    }
+
+    componentWillMount() {
+        console.log("Component will mount");
+    }
+
+    componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+        console.log("Component did mount");
+    }
+
+    componentWillUpdate() {
+        console.log("Component will update");
+    }
+
+    componentDidUpdate() {
+        console.log("Component did update");
+        console.log(); // blank line
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+        console.log("Component will unmount");
+    }
+
+    tick() {
+        this.setState({
+            date: new Date()
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Hello, world!</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+            </div>
+        );
+    }
+}
+export default Clock;
+App.js
+import React from 'react';
+import Clock from './components/Clock_component.js';
+
+function App() {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Clock />
+            </header>
+        </div>
+    );
+}
+export default App;
+|
+|
+|
+|
+*Exp-9*-To create a custom text input field in React using refs.
+common.css
+input {
+ padding: 5px;
+ margin: 20px;
+}
+input[type=button] {
+ padding: 10px;
+ margin: 20px;
+}
+custom_text_input.js
+import React from 'react';
+import './common.css';
+
+class CustomTextInput extends React.Component {
+    constructor(props) {
+        super(props);
+        // Create a ref to store the textInput DOM element
+        this.textInput = React.createRef();
+        this.focusTextInput = this.focusTextInput.bind(this);
+    }
+
+    focusTextInput() {
+        // Explicitly focus the text input using the raw DOM API
+        // Note: we're accessing "current" to get the DOM node
+        this.textInput.current.focus();
+    }
+
+    render() {
+        // Tell React that we want to associate the <input> ref
+        // with the `textInput` created in the constructor
+        return (
+            <div>
+                <input
+                    type="text"
+                    ref={this.textInput}
+                />
+                <input
+                    type="button"
+                    value="Focus the text input"
+                    onClick={this.focusTextInput}
+                />
+            </div>
+        );
+    }
+}
+export default CustomTextInput;
+App.js
+import React from 'react';
+import CustomTextInput from './refs/custom_text_input.js';
+
+function App() {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <CustomTextInput />
+            </header>
+        </div>
+    );
+}
+export default App;
+|
+|
+|
+|
+*Exp-11*
+A)callback_example.js
+/* Caller Function */
+const addNum = (a, b, adab) => {
+    setTimeout(() => {
+        adab(a + b);
+    }, 2000);
+};
+
+// Calling Function
+addNum(4, 5, (c) => {
+    console.log(c);
+});
+|
+|
+|
+|
+B)event_loop_example.js
+setTimeout(function timer() {
+    console.log('2 seconds over, You clicked the button!');
+}, 2000);
+
+console.log("hi!");
+
+setTimeout(function timeout() {
+    console.log('5 seconds over, You clicked the button!');
+}, 5000);
+
+console.log("Welcome to event loops");
+
